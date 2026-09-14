@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, RefreshCw, Star, ChevronDown, Check } from 'lucide-react';
+import { Calendar, RefreshCw, Star, ChevronDown } from 'lucide-react';
 import { League } from '../types';
 
 export type StatusFilterType = 'ALL' | 'LIVE' | 'ONGOING' | 'FT' | 'SCHEDULED' | 'FAVORITES';
@@ -42,20 +42,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   apiLoading = false,
   onRefreshApi,
 }) => {
-  // Sports tabs as in Screenshot 2
-  const sports = [
-    { id: 'football', name: 'Sepak Bola', active: true },
-    { id: 'basketball', name: 'Bola Basket', active: false },
-    { id: 'volleyball', name: 'Bola Voli', active: false },
-    { id: 'baseball', name: 'Baseball', active: false },
-    { id: 'tennis', name: 'Tenis', active: false },
-    { id: 'badminton', name: 'Badminton', active: false },
-    { id: 'hockey', name: 'Hockey', active: false },
-  ];
-
-  const [activeSport, setActiveSport] = useState('football');
-
-  // Days list matching Screenshot 2:
+  // Days list:
   // HARI INI Minggu, 14/09 Senin, 15/09 Selasa, 16/09 Rabu, 17/09 Kamis, 18/09 Jumat, 19/09 Sabtu
   const days = [
     { date: '2026-09-13', isToday: true, dayLabel: 'HARI INI', dayName: 'Minggu' },
@@ -95,27 +82,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
   return (
     <div className="w-full flex flex-col gap-3 mb-5">
-      {/* 1. Top Sport Category Tabs (Screenshot 2) */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs sm:text-sm font-bold">
-        {sports.map((sport) => {
-          const isCurrent = activeSport === sport.id;
-          return (
-            <button
-              key={sport.id}
-              onClick={() => setActiveSport(sport.id)}
-              className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all cursor-pointer ${
-                isCurrent
-                  ? 'bg-[#181d28] text-white border border-[#2d374d] shadow-sm'
-                  : 'text-gray-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              {sport.name}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* 2. Status Pills Row & Date Display */}
+      {/* 1. Status Pills Row & Date Display - Unified Cyan/Emerald Concept */}
       <div className="flex flex-wrap items-center justify-between gap-2.5">
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
           {/* Semua */}
@@ -123,7 +90,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             onClick={() => onSelectStatusFilter('ALL')}
             className={`px-4 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer ${
               statusFilter === 'ALL'
-                ? 'bg-[#FFCC00] text-slate-950 shadow-md scale-100'
+                ? 'bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 shadow-md shadow-emerald-500/25 scale-100'
                 : 'bg-[#141822] text-gray-300 hover:bg-[#1c2230] border border-[#22293b]'
             }`}
           >
@@ -135,7 +102,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             onClick={() => onSelectStatusFilter('LIVE')}
             className={`px-4 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer flex items-center gap-1.5 ${
               statusFilter === 'LIVE'
-                ? 'bg-[#FFCC00] text-slate-950 shadow-md'
+                ? 'bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 shadow-md shadow-emerald-500/25'
                 : 'bg-[#141822] text-gray-300 hover:bg-[#1c2230] border border-[#22293b]'
             }`}
           >
@@ -148,7 +115,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             onClick={() => onSelectStatusFilter('ONGOING')}
             className={`px-4 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer ${
               statusFilter === 'ONGOING'
-                ? 'bg-[#FFCC00] text-slate-950 shadow-md'
+                ? 'bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 shadow-md shadow-emerald-500/25'
                 : 'bg-[#141822] text-gray-300 hover:bg-[#1c2230] border border-[#22293b]'
             }`}
           >
@@ -160,7 +127,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             onClick={() => onSelectStatusFilter('FT')}
             className={`px-4 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer ${
               statusFilter === 'FT'
-                ? 'bg-[#FFCC00] text-slate-950 shadow-md'
+                ? 'bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 shadow-md shadow-emerald-500/25'
                 : 'bg-[#141822] text-gray-300 hover:bg-[#1c2230] border border-[#22293b]'
             }`}
           >
@@ -172,7 +139,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             onClick={() => onSelectStatusFilter('SCHEDULED')}
             className={`px-4 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer ${
               statusFilter === 'SCHEDULED'
-                ? 'bg-[#FFCC00] text-slate-950 shadow-md'
+                ? 'bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 shadow-md shadow-emerald-500/25'
                 : 'bg-[#141822] text-gray-300 hover:bg-[#1c2230] border border-[#22293b]'
             }`}
           >
@@ -182,9 +149,9 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           {/* Favorit */}
           <button
             onClick={() => onSelectStatusFilter('FAVORITES')}
-            className={`px-3 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer flex items-center gap-1 ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer flex items-center gap-1 ${
               statusFilter === 'FAVORITES'
-                ? 'bg-[#FFCC00] text-slate-950 shadow-md'
+                ? 'bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 shadow-md shadow-emerald-500/25'
                 : 'bg-[#141822] text-gray-300 hover:bg-[#1c2230] border border-[#22293b]'
             }`}
           >
@@ -193,11 +160,11 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           </button>
         </div>
 
-        {/* Date Display (Screenshot 2: Min, 13 Sep 2026 📅) */}
+        {/* Date Display (Min, 13 Sep 2026 📅) */}
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#141822] border border-[#22293b] text-xs font-bold text-gray-200">
             <span>Min, 13 Sep 2026</span>
-            <Calendar className="w-3.5 h-3.5 text-gray-400" />
+            <Calendar className="w-3.5 h-3.5 text-cyan-400" />
           </div>
 
           {onRefreshApi && (
@@ -207,23 +174,23 @@ export const FilterBar: React.FC<FilterBarProps> = ({
               className="p-1.5 rounded-xl bg-[#141822] border border-[#22293b] text-gray-300 hover:text-white transition-colors cursor-pointer"
               title="Refresh Live Data"
             >
-              <RefreshCw className={`w-3.5 h-3.5 ${apiLoading ? 'animate-spin text-[#FFCC00]' : ''}`} />
+              <RefreshCw className={`w-3.5 h-3.5 ${apiLoading ? 'animate-spin text-cyan-400' : ''}`} />
             </button>
           )}
         </div>
       </div>
 
-      {/* 3. Days Selector Row (Screenshot 2) */}
+      {/* 2. Days Selector Row - Unified Cyan/Emerald Gradient */}
       <div className="grid grid-cols-4 sm:grid-cols-7 gap-1.5 bg-[#12151d] p-1.5 rounded-2xl border border-[#202738]">
         {days.map((d) => {
-          const isSelected = selectedDate === d.date || (d.isToday && selectedDate === '2026-09-12');
+          const isSelected = selectedDate === d.date || (d.isToday && selectedDate === '2026-09-13');
           return (
             <button
               key={d.date}
               onClick={() => onSelectDate(d.date)}
               className={`flex flex-col items-center justify-center py-2 px-2 rounded-xl transition-all cursor-pointer text-center ${
                 isSelected
-                  ? 'bg-[#FFCC00] text-slate-950 shadow-md'
+                  ? 'bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 font-black shadow-md shadow-emerald-500/25'
                   : 'bg-transparent text-gray-300 hover:bg-white/5'
               }`}
             >
@@ -238,14 +205,14 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         })}
       </div>
 
-      {/* 4. Filter Dropdown Row (Pilih Negara, Pilih Liga, Tampilkan, Reset) */}
+      {/* 3. Filter Dropdown Row (Pilih Negara, Pilih Liga, Tampilkan, Reset, Odds) */}
       <div className="flex flex-wrap items-center gap-2 pt-1">
         {/* Pilih Negara */}
         <div className="relative flex-1 min-w-[140px] max-w-[200px]">
           <select
             value={selectedCountry}
             onChange={(e) => setSelectedCountry(e.target.value)}
-            className="w-full appearance-none bg-[#12151d] border border-[#222838] focus:border-[#FFCC00] rounded-xl px-3.5 py-2 text-xs font-bold text-gray-200 focus:outline-none cursor-pointer pr-8"
+            className="w-full appearance-none bg-[#12151d] border border-[#222838] focus:border-cyan-400 rounded-xl px-3.5 py-2 text-xs font-bold text-gray-200 focus:outline-none cursor-pointer pr-8"
           >
             {countries.map((c) => (
               <option key={c.id} value={c.id} className="bg-[#12151d] text-white">
@@ -261,7 +228,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           <select
             value={tempLeagueId}
             onChange={(e) => setTempLeagueId(e.target.value)}
-            className="w-full appearance-none bg-[#12151d] border border-[#222838] focus:border-[#FFCC00] rounded-xl px-3.5 py-2 text-xs font-bold text-gray-200 focus:outline-none cursor-pointer pr-8"
+            className="w-full appearance-none bg-[#12151d] border border-[#222838] focus:border-cyan-400 rounded-xl px-3.5 py-2 text-xs font-bold text-gray-200 focus:outline-none cursor-pointer pr-8"
           >
             <option value="ALL" className="bg-[#12151d] text-white">
               Pilih Liga
@@ -278,7 +245,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         {/* Tampilkan Button */}
         <button
           onClick={handleApplyFilter}
-          className="px-5 py-2 rounded-xl bg-[#FFCC00] hover:bg-yellow-400 text-slate-950 font-black text-xs tracking-wide shadow-md transition-all active:scale-95 cursor-pointer"
+          className="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 hover:opacity-95 text-slate-950 font-black text-xs tracking-wide shadow-md shadow-emerald-500/20 transition-all active:scale-95 cursor-pointer"
         >
           Tampilkan
         </button>
@@ -291,12 +258,12 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           Reset
         </button>
 
-        {/* Odds Toggle */}
+        {/* Odds Pasaran Toggle */}
         <button
           onClick={onToggleOdds}
-          className={`ml-auto px-3 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+          className={`ml-auto px-3.5 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
             showOdds
-              ? 'bg-yellow-500/10 border-yellow-500/50 text-[#FFCC00]'
+              ? 'bg-emerald-500/15 border-emerald-500/50 text-cyan-300 shadow-sm'
               : 'bg-[#141822] border-[#22293b] text-gray-400 hover:text-gray-200'
           }`}
         >

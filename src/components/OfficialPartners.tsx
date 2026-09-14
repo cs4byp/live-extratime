@@ -43,7 +43,7 @@ export const OFFICIAL_PARTNERS: PartnerItem[] = [
     testId: 'home-partner-5',
     title: 'RGOPOKER',
     link: 'https://rpenergy.site/rgo/',
-    logo: 'https://cf.ruangok.com/public/banner/id/rgopoker/logo/LOGO%20GIF%20RGOPOKER%20NEW%202025%201%20(2).gif?1782420097#',
+    logo: 'https://cf.ruangok.com/public/banner/id/rgopoker/logo/LOGO-GIF-RGOPOKER-NEW-2025-1-_2_.webp?1788907814#',
   },
 ];
 
@@ -54,7 +54,7 @@ export const OfficialPartners: React.FC = () => {
       data-testid="partner-resmi-section"
     >
       {/* Background ambient lighting */}
-      <div className="absolute top-0 left-1/3 w-96 h-32 bg-yellow-500/10 blur-3xl pointer-events-none rounded-full" />
+      <div className="absolute top-0 left-1/3 w-96 h-32 bg-cyan-500/10 blur-3xl pointer-events-none rounded-full" />
       <div className="absolute top-0 right-1/3 w-96 h-32 bg-emerald-500/10 blur-3xl pointer-events-none rounded-full" />
 
       {/* Header */}
@@ -73,27 +73,29 @@ export const OfficialPartners: React.FC = () => {
             href={partner.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="partner-card group relative flex flex-col items-center justify-center p-4 rounded-xl bg-gradient-to-b from-[#141720] to-[#0c0f16] hover:from-[#1a2130] hover:to-[#101622] border border-[#202738] hover:border-yellow-400/70 transition-all duration-300 shadow-md hover:shadow-yellow-500/10 hover:-translate-y-1 min-h-[96px] w-full text-center overflow-hidden cursor-pointer"
+            className="partner-card group relative flex flex-col items-center justify-center p-4 rounded-xl bg-gradient-to-b from-[#141720] to-[#0c0f16] hover:from-[#1a2130] hover:to-[#101622] border border-[#202738] hover:border-cyan-400/70 transition-all duration-300 shadow-md hover:shadow-cyan-500/10 hover:-translate-y-1 min-h-[96px] w-full text-center overflow-hidden cursor-pointer"
             data-testid={partner.testId}
             title={partner.title}
           >
-            <img
-              alt={partner.title}
-              loading="lazy"
-              src={partner.logo}
-              referrerPolicy="no-referrer"
-              className="max-h-12 w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
-              onError={(e) => {
-                const target = e.currentTarget;
-                target.style.display = 'none';
-                const fallback = target.parentElement?.querySelector('.partner-fallback');
-                if (fallback) {
-                  (fallback as HTMLElement).style.display = 'flex';
-                }
-              }}
-            />
-            {/* Fallback badge if image fails to load */}
-            <div className="partner-fallback hidden flex-col items-center justify-center text-xs font-bold text-white tracking-wider">
+            {partner.logo && partner.logo.trim() !== '' ? (
+              <img
+                alt={partner.title}
+                loading="lazy"
+                src={partner.logo}
+                referrerPolicy="no-referrer"
+                className="max-h-12 w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  target.style.display = 'none';
+                  const fallback = target.parentElement?.querySelector('.partner-fallback');
+                  if (fallback) {
+                    (fallback as HTMLElement).style.display = 'flex';
+                  }
+                }}
+              />
+            ) : null}
+            {/* Fallback badge if image fails to load or no logo provided */}
+            <div className={`partner-fallback ${partner.logo && partner.logo.trim() !== '' ? 'hidden' : 'flex'} flex-col items-center justify-center text-xs font-bold text-white tracking-wider`}>
               <span>{partner.title}</span>
             </div>
           </a>

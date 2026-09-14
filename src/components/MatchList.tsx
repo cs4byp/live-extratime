@@ -66,7 +66,10 @@ export const MatchList: React.FC<MatchListProps> = ({
         const leagueObj = leagues.find((l) => l.id === leagueId);
         const isCollapsed = collapsedLeagues[leagueId];
         const liveCount = leagueMatches.filter((m) => m.status === 'LIVE').length;
-        const leagueLogo = leagueObj?.logo || 'https://a.espncdn.com/i/leaguelogos/soccer/500/2.png';
+        const leagueLogo =
+          leagueObj?.logo && leagueObj.logo.trim() !== ''
+            ? leagueObj.logo
+            : 'https://a.espncdn.com/i/leaguelogos/soccer/500/2.png';
 
         return (
           <div
@@ -81,15 +84,17 @@ export const MatchList: React.FC<MatchListProps> = ({
               <div className="flex items-center gap-2.5 truncate">
                 {/* Circular white logo badge */}
                 <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center p-1 shadow-sm shrink-0">
-                  <img
-                    src={leagueLogo}
-                    alt={leagueObj?.name || firstMatch.leagueName}
-                    referrerPolicy="no-referrer"
-                    className="w-5 h-5 object-contain"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                    }}
-                  />
+                  {leagueLogo ? (
+                    <img
+                      src={leagueLogo}
+                      alt={leagueObj?.name || firstMatch.leagueName}
+                      referrerPolicy="no-referrer"
+                      className="w-5 h-5 object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  ) : null}
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">

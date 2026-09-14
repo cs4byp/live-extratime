@@ -23,6 +23,16 @@ export const MatchRow: React.FC<MatchRowProps> = ({
   const homeWon = isFT && match.homeScore > match.awayScore;
   const awayWon = isFT && match.awayScore > match.homeScore;
 
+  const homeLogo =
+    match.homeTeam.logo && match.homeTeam.logo.trim() !== ''
+      ? match.homeTeam.logo
+      : 'https://a.espncdn.com/i/teamlogos/soccer/500/default-team-logo-500.png';
+
+  const awayLogo =
+    match.awayTeam.logo && match.awayTeam.logo.trim() !== ''
+      ? match.awayTeam.logo
+      : 'https://a.espncdn.com/i/teamlogos/soccer/500/default-team-logo-500.png';
+
   return (
     <div
       onClick={() => onSelectMatch(match)}
@@ -35,17 +45,17 @@ export const MatchRow: React.FC<MatchRowProps> = ({
         {/* Favorite Star */}
         <button
           onClick={(e) => onToggleFavorite(match.id, e)}
-          className="p-1 text-gray-500 hover:text-yellow-400 transition-colors shrink-0"
+          className="p-1 text-gray-500 hover:text-cyan-400 transition-colors shrink-0"
           title={match.isFavorite ? 'Hapus dari Favorit' : 'Tambah ke Favorit'}
         >
           <Star
             className={`w-4 h-4 ${
-              match.isFavorite ? 'text-[#FFCC00] fill-[#FFCC00]' : 'text-gray-500 hover:text-gray-300'
+              match.isFavorite ? 'text-cyan-400 fill-cyan-400' : 'text-gray-500 hover:text-gray-300'
             }`}
           />
         </button>
 
-        {/* Status Indicator matching Screenshot 2 (FT 02:00 / 20:00 / 22:30 / LIVE 72') */}
+        {/* Status Indicator */}
         <div className="flex flex-col">
           {isLive && (
             <div className="flex items-center gap-1.5 font-mono text-xs font-black text-red-400">
@@ -79,7 +89,7 @@ export const MatchRow: React.FC<MatchRowProps> = ({
         </div>
       </div>
 
-      {/* 2. Center: Teams & Scoreboard (Screenshot 2 Match Format) */}
+      {/* 2. Center: Teams & Scoreboard with Unified Cyan/Emerald Concept */}
       <div className="flex-1 flex items-center justify-between md:justify-center gap-3 sm:gap-6 px-1 sm:px-4">
         {/* Home Team */}
         <div className="flex-1 flex items-center justify-end gap-2.5 text-right min-w-0">
@@ -91,13 +101,13 @@ export const MatchRow: React.FC<MatchRowProps> = ({
             />
           )}
 
-          {/* Home Team Name: If winner, highlighted in yellow pill! */}
+          {/* Home Team Name: If winner, highlighted in signature Cyan/Emerald pill */}
           {homeWon ? (
-            <span className="px-3 py-1 rounded-full bg-[#FFCC00] text-slate-950 font-black text-xs sm:text-sm tracking-tight truncate shadow-sm">
+            <span className="px-3 py-1 rounded-full bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 font-black text-xs sm:text-sm tracking-tight truncate shadow-md shadow-emerald-500/20">
               {match.homeTeam.name}
             </span>
           ) : (
-            <span className="text-xs sm:text-sm font-bold text-gray-200 truncate group-hover:text-yellow-400 transition-colors">
+            <span className="text-xs sm:text-sm font-bold text-gray-200 truncate group-hover:text-cyan-300 transition-colors">
               {match.homeTeam.name}
             </span>
           )}
@@ -105,7 +115,7 @@ export const MatchRow: React.FC<MatchRowProps> = ({
           {/* Home Team Logo (Circular) */}
           <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center p-1 shrink-0 shadow-sm overflow-hidden border border-white/20">
             <img
-              src={match.homeTeam.logo}
+              src={homeLogo}
               alt={match.homeTeam.name}
               referrerPolicy="no-referrer"
               className="w-6 h-6 object-contain"
@@ -117,7 +127,7 @@ export const MatchRow: React.FC<MatchRowProps> = ({
           </div>
         </div>
 
-        {/* Score Pill / VS: Curved dark pill matching screenshot */}
+        {/* Score Pill / VS: Curved dark pill */}
         <div className="shrink-0 flex items-center justify-center px-3.5 py-1.5 bg-[#0b0e14] rounded-full border border-[#232a3b] shadow-inner min-w-[70px]">
           {isScheduled ? (
             <span className="text-xs font-black text-gray-400 font-mono tracking-wider">
@@ -125,11 +135,11 @@ export const MatchRow: React.FC<MatchRowProps> = ({
             </span>
           ) : (
             <div className="flex items-center gap-1.5 font-mono font-black text-sm sm:text-base">
-              <span className={homeWon ? 'text-[#FFCC00]' : 'text-white'}>
+              <span className={homeWon ? 'text-cyan-400' : 'text-white'}>
                 {match.homeScore}
               </span>
               <span className="text-gray-500">:</span>
-              <span className={awayWon ? 'text-[#FFCC00]' : 'text-white'}>
+              <span className={awayWon ? 'text-cyan-400' : 'text-white'}>
                 {match.awayScore}
               </span>
             </div>
@@ -141,7 +151,7 @@ export const MatchRow: React.FC<MatchRowProps> = ({
           {/* Away Team Logo (Circular) */}
           <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center p-1 shrink-0 shadow-sm overflow-hidden border border-white/20">
             <img
-              src={match.awayTeam.logo}
+              src={awayLogo}
               alt={match.awayTeam.name}
               referrerPolicy="no-referrer"
               className="w-6 h-6 object-contain"
@@ -152,13 +162,13 @@ export const MatchRow: React.FC<MatchRowProps> = ({
             />
           </div>
 
-          {/* Away Team Name: If winner, highlighted in yellow pill! */}
+          {/* Away Team Name: If winner, highlighted in signature Cyan/Emerald pill */}
           {awayWon ? (
-            <span className="px-3 py-1 rounded-full bg-[#FFCC00] text-slate-950 font-black text-xs sm:text-sm tracking-tight truncate shadow-sm">
+            <span className="px-3 py-1 rounded-full bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 font-black text-xs sm:text-sm tracking-tight truncate shadow-md shadow-emerald-500/20">
               {match.awayTeam.name}
             </span>
           ) : (
-            <span className="text-xs sm:text-sm font-bold text-gray-200 truncate group-hover:text-yellow-400 transition-colors">
+            <span className="text-xs sm:text-sm font-bold text-gray-200 truncate group-hover:text-cyan-300 transition-colors">
               {match.awayTeam.name}
             </span>
           )}
@@ -179,21 +189,21 @@ export const MatchRow: React.FC<MatchRowProps> = ({
         {showOdds && match.odds && (
           <div className="hidden xl:flex items-center gap-2 font-mono text-[11px] text-gray-300 bg-[#12151d] px-2.5 py-1 rounded-lg border border-[#202738]">
             <span className="text-gray-500 text-[10px]">HDP:</span>
-            <span className="text-[#FFCC00] font-bold">{match.odds.handicap.line}</span>
+            <span className="text-cyan-400 font-bold">{match.odds.handicap.line}</span>
             <span className="text-gray-500 text-[10px]">O/U:</span>
             <span className="text-emerald-400 font-bold">{match.odds.overUnder.line}</span>
           </div>
         )}
 
-        {/* Yellow 'Live' button matching Screenshot 2 */}
+        {/* Unified Cyan/Emerald 'Live' Button */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             onSelectMatch(match);
           }}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#FFCC00] hover:bg-yellow-400 text-slate-950 font-black text-xs tracking-wider transition-all shadow-sm active:scale-95 cursor-pointer ml-auto md:ml-0"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 text-slate-950 font-black text-xs tracking-wider transition-all shadow-md shadow-emerald-500/20 active:scale-95 cursor-pointer ml-auto md:ml-0"
         >
-          <Tv className="w-3.5 h-3.5" />
+          <Tv className="w-3.5 h-3.5 text-slate-950 stroke-[2.5]" />
           <span>Live</span>
         </button>
       </div>

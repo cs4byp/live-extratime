@@ -65,21 +65,27 @@ export const TopLigaSidebar: React.FC<TopLigaSidebarProps> = ({
                 onClick={() => onSelectLeague(league.id)}
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl text-left font-bold text-xs transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#FFCC00] text-slate-950 shadow-md font-black'
+                    ? 'bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 shadow-md shadow-emerald-500/20 font-black'
                     : 'text-gray-300 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {/* Circular white logo badge */}
                 <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center p-1 flex-shrink-0 shadow-sm">
-                  <img
-                    src={league.logo}
-                    alt={league.name}
-                    referrerPolicy="no-referrer"
-                    className="w-5 h-5 object-contain"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                    }}
-                  />
+                  {league.logo && league.logo.trim() !== '' ? (
+                    <img
+                      src={league.logo}
+                      alt={league.name}
+                      referrerPolicy="no-referrer"
+                      className="w-5 h-5 object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  ) : (
+                    <span className="text-[10px] font-black text-slate-800">
+                      {league.shortName || league.name.slice(0, 2)}
+                    </span>
+                  )}
                 </div>
                 <span className="truncate">{league.name}</span>
               </button>

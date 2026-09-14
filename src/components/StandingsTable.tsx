@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Trophy, RefreshCw, ChevronRight } from 'lucide-react';
+import { Trophy, RefreshCw } from 'lucide-react';
 import { League, StandingRow } from '../types';
 import { TopLeagueGrid } from './TopLeagueGrid';
 import { getStandingsForLeague } from '../data/mockMatches';
@@ -59,7 +59,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
 
   return (
     <div className="w-full space-y-6">
-      {/* 1. Top 10 League Grid matching Screenshot 3 */}
+      {/* 1. Top 10 League Grid */}
       <TopLeagueGrid
         leagues={leagues}
         selectedLeagueId={selectedLeagueId}
@@ -73,15 +73,21 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
         <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-[#202738]">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center p-1.5 shadow-sm">
-              <img
-                src={selectedLeague.logo}
-                alt={selectedLeague.name}
-                referrerPolicy="no-referrer"
-                className="w-6 h-6 object-contain"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
+              {selectedLeague?.logo && selectedLeague.logo.trim() !== '' ? (
+                <img
+                  src={selectedLeague.logo}
+                  alt={selectedLeague.name}
+                  referrerPolicy="no-referrer"
+                  className="w-6 h-6 object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              ) : (
+                <span className="text-xs font-black text-slate-800">
+                  {selectedLeague?.shortName || selectedLeague?.name.slice(0, 2)}
+                </span>
+              )}
             </div>
             <div>
               <h3 className="text-lg font-black text-white tracking-tight flex items-center gap-2">
@@ -108,7 +114,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
               disabled={loading}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#181d28] hover:bg-[#202738] text-xs font-bold text-gray-300 hover:text-white transition-colors border border-[#283248] cursor-pointer"
             >
-              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-[#FFCC00]' : ''}`} />
+              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-cyan-400' : ''}`} />
               <span>Refresh</span>
             </button>
           </div>
@@ -128,7 +134,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
                 <th className="py-3 px-2 text-center" title="Gol Masuk">GM</th>
                 <th className="py-3 px-2 text-center" title="Gol Kebobolan">GK</th>
                 <th className="py-3 px-2 text-center" title="Selisih Gol">GD</th>
-                <th className="py-3 px-3 text-center font-bold text-[#FFCC00]" title="Poin">PTS</th>
+                <th className="py-3 px-3 text-center font-bold text-cyan-300" title="Poin">PTS</th>
                 <th className="py-3 px-3 text-center hidden md:table-cell">5 Pertandingan Terakhir</th>
               </tr>
             </thead>
@@ -145,7 +151,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
                       <span
                         className={`inline-block w-6 h-6 rounded-full leading-6 text-center text-xs ${
                           pos === 1
-                            ? 'bg-[#FFCC00] text-slate-950 font-black'
+                            ? 'bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 font-black shadow-sm'
                             : isUcl
                             ? 'bg-emerald-600 text-white font-bold'
                             : 'text-gray-400'
@@ -157,16 +163,22 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
                     <td className="py-2.5 px-3 font-bold text-white">
                       <div className="flex items-center gap-2.5">
                         <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center p-0.5 flex-shrink-0 overflow-hidden">
-                          <img
-                            src={row.teamLogo}
-                            alt={row.teamName}
-                            referrerPolicy="no-referrer"
-                            className="w-5 h-5 object-contain"
-                            onError={(e) => {
-                              e.currentTarget.src =
-                                'https://a.espncdn.com/i/teamlogos/soccer/500/default-team-logo-500.png';
-                            }}
-                          />
+                          {row.teamLogo && row.teamLogo.trim() !== '' ? (
+                            <img
+                              src={row.teamLogo}
+                              alt={row.teamName}
+                              referrerPolicy="no-referrer"
+                              className="w-5 h-5 object-contain"
+                              onError={(e) => {
+                                e.currentTarget.src =
+                                  'https://a.espncdn.com/i/teamlogos/soccer/500/default-team-logo-500.png';
+                              }}
+                            />
+                          ) : (
+                            <span className="text-[10px] font-bold text-gray-300">
+                              {row.shortName || row.teamName.slice(0, 2)}
+                            </span>
+                          )}
                         </div>
                         <span className="truncate max-w-[200px]">{row.teamName}</span>
                       </div>
@@ -184,7 +196,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
                     >
                       {gdDisplay}
                     </td>
-                    <td className="py-2.5 px-3 text-center font-black text-sm text-[#FFCC00]">
+                    <td className="py-2.5 px-3 text-center font-black text-sm text-cyan-300">
                       {row.points}
                     </td>
                     <td className="py-2.5 px-3 text-center hidden md:table-cell">

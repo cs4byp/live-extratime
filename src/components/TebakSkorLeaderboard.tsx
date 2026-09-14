@@ -50,11 +50,17 @@ export const TebakSkorLeaderboard: React.FC<TebakSkorLeaderboardProps> = ({ onBa
           <div className="w-8 h-8 rounded-full bg-slate-300 text-slate-900 font-black text-sm flex items-center justify-center absolute -top-3.5 shadow-md">
             2
           </div>
-          <img
-            src={top2.avatar}
-            alt={top2.name}
-            className="w-16 h-16 rounded-full border-2 border-slate-300 object-cover mt-2 mb-2 shadow-md"
-          />
+          {top2.avatar && top2.avatar.trim() !== '' ? (
+            <img
+              src={top2.avatar}
+              alt={top2.name}
+              className="w-16 h-16 rounded-full border-2 border-slate-300 object-cover mt-2 mb-2 shadow-md"
+            />
+          ) : (
+            <div className="w-16 h-16 rounded-full border-2 border-slate-300 bg-slate-800 flex items-center justify-center text-sm font-bold text-white mt-2 mb-2">
+              {top2.name.slice(0, 2)}
+            </div>
+          )}
           <h3 className="font-bold text-white text-sm">{top2.name}</h3>
           <span className="text-[11px] text-gray-400">{top2.city} • <strong className="text-slate-300">{top2.favoriteClub}</strong></span>
           <div className="mt-3 py-1 px-3 rounded-full bg-slate-800/80 border border-slate-600 text-xs font-extrabold text-slate-200 font-mono">
@@ -73,11 +79,17 @@ export const TebakSkorLeaderboard: React.FC<TebakSkorLeaderboardProps> = ({ onBa
           <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-400 to-yellow-300 text-black font-black text-base flex items-center justify-center absolute -top-5 shadow-lg border-2 border-[#121927]">
             👑 1
           </div>
-          <img
-            src={top1.avatar}
-            alt={top1.name}
-            className="w-20 h-20 rounded-full border-2 border-amber-400 object-cover mt-2 mb-2 shadow-lg"
-          />
+          {top1.avatar && top1.avatar.trim() !== '' ? (
+            <img
+              src={top1.avatar}
+              alt={top1.name}
+              className="w-20 h-20 rounded-full border-2 border-amber-400 object-cover mt-2 mb-2 shadow-lg"
+            />
+          ) : (
+            <div className="w-20 h-20 rounded-full border-2 border-amber-400 bg-slate-800 flex items-center justify-center text-base font-bold text-white mt-2 mb-2">
+              {top1.name.slice(0, 2)}
+            </div>
+          )}
           <span className="inline-block px-2 py-0.2 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/50 mb-1">
             PEMUNCAK KLASEMEN
           </span>
@@ -99,11 +111,17 @@ export const TebakSkorLeaderboard: React.FC<TebakSkorLeaderboardProps> = ({ onBa
           <div className="w-8 h-8 rounded-full bg-amber-700 text-white font-black text-sm flex items-center justify-center absolute -top-3.5 shadow-md">
             3
           </div>
-          <img
-            src={top3.avatar}
-            alt={top3.name}
-            className="w-16 h-16 rounded-full border-2 border-amber-600 object-cover mt-2 mb-2 shadow-md"
-          />
+          {top3.avatar && top3.avatar.trim() !== '' ? (
+            <img
+              src={top3.avatar}
+              alt={top3.name}
+              className="w-16 h-16 rounded-full border-2 border-amber-600 object-cover mt-2 mb-2 shadow-md"
+            />
+          ) : (
+            <div className="w-16 h-16 rounded-full border-2 border-amber-600 bg-slate-800 flex items-center justify-center text-sm font-bold text-white mt-2 mb-2">
+              {top3.name.slice(0, 2)}
+            </div>
+          )}
           <h3 className="font-bold text-white text-sm">{top3.name}</h3>
           <span className="text-[11px] text-gray-400">{top3.city} • <strong className="text-amber-500">{top3.favoriteClub}</strong></span>
           <div className="mt-3 py-1 px-3 rounded-full bg-amber-950/80 border border-amber-700 text-xs font-extrabold text-amber-300 font-mono">
@@ -150,7 +168,13 @@ export const TebakSkorLeaderboard: React.FC<TebakSkorLeaderboardProps> = ({ onBa
                   </td>
                   <td className="py-2.5 px-3">
                     <div className="flex items-center gap-2.5">
-                      <img src={u.avatar} alt={u.name} className="w-7 h-7 rounded-full object-cover border border-[#2a3a50]" />
+                      {u.avatar && u.avatar.trim() !== '' ? (
+                        <img src={u.avatar} alt={u.name} className="w-7 h-7 rounded-full object-cover border border-[#2a3a50]" />
+                      ) : (
+                        <div className="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center text-[10px] text-white font-bold border border-[#2a3a50]">
+                          {u.name.slice(0, 2)}
+                        </div>
+                      )}
                       <div>
                         <span className="font-bold text-white block truncate max-w-[140px]">{u.name}</span>
                         <span className="text-[10px] text-gray-400">{u.city}</span>

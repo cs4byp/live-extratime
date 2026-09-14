@@ -84,11 +84,11 @@ export const RightStandingsWidget: React.FC<RightStandingsWidgetProps> = ({
   return (
     <aside className="w-full lg:w-80 flex-shrink-0 flex flex-col gap-4">
       <div className="bg-[#12151d] border border-[#202738] rounded-2xl p-4 flex flex-col shadow-lg">
-        {/* League Selector Header matching Screenshot 2: < Champions League Europe > */}
+        {/* League Selector Header: < Champions League Europe > */}
         <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
           <button
             onClick={handlePrevLeague}
-            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-300 hover:text-white transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-300 hover:text-cyan-300 transition-colors cursor-pointer"
             title="Liga Sebelumnya"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -105,7 +105,7 @@ export const RightStandingsWidget: React.FC<RightStandingsWidgetProps> = ({
 
           <button
             onClick={handleNextLeague}
-            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-300 hover:text-white transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-300 hover:text-cyan-300 transition-colors cursor-pointer"
             title="Liga Selanjutnya"
           >
             <ChevronRight className="w-4 h-4" />
@@ -141,9 +141,9 @@ export const RightStandingsWidget: React.FC<RightStandingsWidgetProps> = ({
                   <span
                     className={`text-[11px] font-bold ${
                       rank === 1
-                        ? 'text-[#FFCC00]'
+                        ? 'text-cyan-300'
                         : isTop4
-                        ? 'text-white'
+                        ? 'text-emerald-400'
                         : 'text-gray-400'
                     }`}
                   >
@@ -154,16 +154,22 @@ export const RightStandingsWidget: React.FC<RightStandingsWidgetProps> = ({
                 {/* Team Name + Logo */}
                 <div className="col-span-5 flex items-center gap-2 min-w-0">
                   <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center p-0.5 flex-shrink-0 overflow-hidden">
-                    <img
-                      src={team.teamLogo}
-                      alt={team.teamName}
-                      referrerPolicy="no-referrer"
-                      className="w-4 h-4 object-contain"
-                      onError={(e) => {
-                        e.currentTarget.src =
-                          'https://a.espncdn.com/i/teamlogos/soccer/500/default-team-logo-500.png';
-                      }}
-                    />
+                    {team.teamLogo && team.teamLogo.trim() !== '' ? (
+                      <img
+                        src={team.teamLogo}
+                        alt={team.teamName}
+                        referrerPolicy="no-referrer"
+                        className="w-4 h-4 object-contain"
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            'https://a.espncdn.com/i/teamlogos/soccer/500/default-team-logo-500.png';
+                        }}
+                      />
+                    ) : (
+                      <span className="text-[9px] font-bold text-gray-300">
+                        {team.shortName || team.teamName.slice(0, 2)}
+                      </span>
+                    )}
                   </div>
                   <span className="truncate text-white font-medium text-xs">
                     {team.teamName}
@@ -189,7 +195,7 @@ export const RightStandingsWidget: React.FC<RightStandingsWidgetProps> = ({
                 </div>
 
                 {/* Points (PTS) */}
-                <div className="col-span-2 text-center font-black text-white text-xs">
+                <div className="col-span-2 text-center font-black text-cyan-300 text-xs">
                   {team.points}
                 </div>
               </div>
@@ -201,9 +207,9 @@ export const RightStandingsWidget: React.FC<RightStandingsWidgetProps> = ({
         {onViewFullStandings && (
           <button
             onClick={() => onViewFullStandings(currentLeague.id)}
-            className="mt-3 pt-3 border-t border-white/10 text-center text-xs font-bold text-[#FFCC00] hover:text-yellow-300 flex items-center justify-center gap-1 cursor-pointer transition-colors"
+            className="mt-3 pt-3 border-t border-white/10 text-center text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
           >
-            <Trophy className="w-3.5 h-3.5" />
+            <Trophy className="w-3.5 h-3.5 text-emerald-400" />
             <span>Lihat Klasemen Lengkap</span>
           </button>
         )}

@@ -640,6 +640,17 @@ export const LIGA1_STANDINGS: StandingRow[] = [
   { position: 7, teamId: 'persebaya', teamName: 'Persebaya Surabaya', teamLogo: 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=80&auto=format&fit=crop&q=60', played: 28, won: 8, draw: 12, lost: 8, goalsFor: 30, goalsAgainst: 35, goalDifference: -5, points: 36, form: ['D', 'W', 'D', 'D', 'L'] },
 ];
 
+// Standings for English Premier League
+export const EPL_STANDINGS: StandingRow[] = [
+  { position: 1, teamId: 'liverpool', teamName: 'Liverpool', teamLogo: 'https://a.espncdn.com/i/teamlogos/soccer/500/364.png', played: 4, won: 4, draw: 0, lost: 0, goalsFor: 9, goalsAgainst: 0, goalDifference: 9, points: 12, form: ['W', 'W', 'W', 'W'] },
+  { position: 2, teamId: 'mancity', teamName: 'Manchester City', teamLogo: 'https://a.espncdn.com/i/teamlogos/soccer/500/382.png', played: 4, won: 3, draw: 1, lost: 0, goalsFor: 11, goalsAgainst: 3, goalDifference: 8, points: 10, form: ['W', 'W', 'W', 'D'] },
+  { position: 3, teamId: 'arsenal', teamName: 'Arsenal', teamLogo: 'https://a.espncdn.com/i/teamlogos/soccer/500/359.png', played: 4, won: 3, draw: 1, lost: 0, goalsFor: 8, goalsAgainst: 1, goalDifference: 7, points: 10, form: ['W', 'W', 'D', 'W'] },
+  { position: 4, teamId: 'chelsea', teamName: 'Chelsea', teamLogo: 'https://a.espncdn.com/i/teamlogos/soccer/500/363.png', played: 4, won: 2, draw: 1, lost: 1, goalsFor: 8, goalsAgainst: 5, goalDifference: 3, points: 7, form: ['L', 'W', 'D', 'W'] },
+  { position: 5, teamId: 'astonvilla', teamName: 'Aston Villa', teamLogo: 'https://a.espncdn.com/i/teamlogos/soccer/500/362.png', played: 4, won: 2, draw: 1, lost: 1, goalsFor: 7, goalsAgainst: 6, goalDifference: 1, points: 7, form: ['W', 'L', 'W', 'D'] },
+  { position: 6, teamId: 'tottenham', teamName: 'Tottenham', teamLogo: 'https://a.espncdn.com/i/teamlogos/soccer/500/367.png', played: 4, won: 2, draw: 0, lost: 2, goalsFor: 6, goalsAgainst: 4, goalDifference: 2, points: 6, form: ['D', 'W', 'L', 'L'] },
+  { position: 7, teamId: 'manutd', teamName: 'Manchester United', teamLogo: 'https://a.espncdn.com/i/teamlogos/soccer/500/360.png', played: 4, won: 2, draw: 0, lost: 2, goalsFor: 5, goalsAgainst: 5, goalDifference: 0, points: 6, form: ['W', 'L', 'L', 'W'] },
+];
+
 // Standings for UEFA Champions League (Matching Screenshot 2)
 export const UCL_STANDINGS: StandingRow[] = [
   { position: 1, teamId: 'psg', teamName: 'PSG', teamLogo: 'https://a.espncdn.com/i/teamlogos/soccer/500/160.png', played: 1, won: 1, draw: 0, lost: 0, goalsFor: 6, goalsAgainst: 1, goalDifference: 5, points: 3, form: ['W'] },

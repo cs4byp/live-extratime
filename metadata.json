@@ -2,5 +2,7 @@
   "name": "EXTRA TIME",
   "description": "Platform live score sepak bola dan olahraga terlengkap EXTRA TIME dengan pembaruan skor langsung realtime, animasi lapangan 2D, statistik pertandingan, pasaran odds, dan klasemen liga.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

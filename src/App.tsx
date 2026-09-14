@@ -4,7 +4,6 @@ import { Match } from './types';
 import { INITIAL_MATCHES, INITIAL_LEAGUES } from './data/mockMatches';
 import { Header, MainNavTab } from './components/Header';
 import { TopLeagueGrid } from './components/TopLeagueGrid';
-import { TopLigaSidebar } from './components/TopLigaSidebar';
 import { RightStandingsWidget } from './components/RightStandingsWidget';
 import { FilterBar, StatusFilterType } from './components/FilterBar';
 import { MatchList } from './components/MatchList';
@@ -116,7 +115,7 @@ export default function App() {
                 player: `${m.homeTeam.shortName} Striker`,
                 description: `Gol indah dari dalam kotak penalti`,
               });
-              if (soundEnabled) soundService.playGoalWhistle();
+              if (soundEnabled) soundService.playGoalSound();
               setLiveNotification({
                 id: `notif-${Date.now()}`,
                 title: '🚨 GOOOL!',
@@ -135,7 +134,7 @@ export default function App() {
                 player: `${m.awayTeam.shortName} Forward`,
                 description: `Penyelesaian akhir sempurna`,
               });
-              if (soundEnabled) soundService.playGoalWhistle();
+              if (soundEnabled) soundService.playGoalSound();
               setLiveNotification({
                 id: `notif-${Date.now()}`,
                 title: '🚨 GOOOL!',
@@ -214,7 +213,7 @@ export default function App() {
   const liveMatchesCount = matches.filter((m) => m.status === 'LIVE').length;
 
   return (
-    <div className="min-h-screen bg-[#090b10] text-slate-100 flex flex-col font-sans selection:bg-[#FFCC00] selection:text-slate-950">
+    <div className="min-h-screen bg-[#090b10] text-slate-100 flex flex-col font-sans selection:bg-cyan-400 selection:text-slate-950">
       {/* Top Header with EXTRA TIME Branding */}
       <Header
         activeMainTab={activeMainTab}
@@ -231,10 +230,10 @@ export default function App() {
       {/* Main Container */}
       <main className="flex-1 max-w-[1440px] w-full mx-auto px-3 sm:px-6 py-5">
         
-        {/* Tab 1: Live Score & Matches View (3-Column Layout matching Screenshot 2) */}
+        {/* Tab 1: Live Score & Matches View */}
         {activeMainTab === 'matches' && (
           <div className="space-y-6">
-            {/* Top 10 League Grid Carousel with 'Klasemen >' yellow pill button (Screenshot 1 & 2) */}
+            {/* Top 10 League Grid with 'Klasemen >' button */}
             <TopLeagueGrid
               leagues={INITIAL_LEAGUES}
               selectedLeagueId={selectedLeagueId}
@@ -243,18 +242,9 @@ export default function App() {
               showTitle={false}
             />
 
-            {/* 3-Column Grid Layout matching Screenshot 2 */}
-            <div className="flex flex-col lg:flex-row items-start gap-5">
-              {/* 1. Left Column: Top Liga Sidebar */}
-              <TopLigaSidebar
-                leagues={INITIAL_LEAGUES}
-                selectedLeagueId={selectedLeagueId}
-                onSelectLeague={(id) => setSelectedLeagueId(id)}
-                searchQuery={searchQuery}
-                onSearchChange={setSearchQuery}
-              />
-
-              {/* 2. Center Column: Filters & Match List */}
+            {/* Clean Match Layout (FilterBar + MatchList + Right Standings Widget) */}
+            <div className="flex flex-col lg:flex-row items-start gap-6">
+              {/* Center Main Column: FilterBar & MatchList */}
               <div className="flex-1 min-w-0 w-full">
                 {/* Filter and Status Controls */}
                 <FilterBar
@@ -283,7 +273,7 @@ export default function App() {
                 />
               </div>
 
-              {/* 3. Right Column: Champions League / League Standings Widget */}
+              {/* Right Column: Champions League / League Standings Widget */}
               <RightStandingsWidget
                 leagues={INITIAL_LEAGUES}
                 activeLeagueId={selectedLeagueId === 'ALL' ? 'ucl' : selectedLeagueId}
@@ -297,7 +287,7 @@ export default function App() {
           </div>
         )}
 
-        {/* Tab 2: Standings Table (Screenshot 3: Klasemen Sepak Bola + Grid + Full Table) */}
+        {/* Tab 2: Standings Table (Klasemen Sepak Bola + Grid + Full Table) */}
         {activeMainTab === 'standings' && (
           <StandingsTable
             leagues={INITIAL_LEAGUES}
@@ -317,13 +307,13 @@ export default function App() {
         <div className="max-w-7xl mx-auto space-y-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#FFCC00] flex items-center justify-center text-slate-950 font-black text-base shadow-lg shadow-yellow-500/20">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-400 flex items-center justify-center text-slate-950 font-black text-base shadow-lg shadow-emerald-500/20">
                 ⏱️
               </div>
               <div>
                 <span className="font-score font-black text-xl tracking-tight">
                   <span className="text-white">EXTRA </span>
-                  <span className="text-[#FFCC00]">TIME</span>
+                  <span className="text-cyan-400">TIME</span>
                 </span>
                 <span className="text-gray-400 text-xs block mt-0.5">
                   Pusat Live Score & Informasi Sepak Bola Terlengkap Indonesia
@@ -336,20 +326,20 @@ export default function App() {
                 href="https://www.tebakskor-extratime.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group px-3.5 py-1.5 rounded-xl bg-[#FFCC00] text-slate-950 font-black hover:bg-yellow-400 transition-all flex items-center gap-1.5 shadow-sm text-xs"
+                className="group px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 font-black hover:opacity-95 transition-all flex items-center gap-1.5 shadow-sm text-xs"
               >
                 <span>🎯 Tebak Skor</span>
                 <span className="text-[10px] bg-slate-950/20 px-1 py-0.2 rounded font-sans">Resmi</span>
               </a>
               <button
                 onClick={() => setActiveMainTab('matches')}
-                className={`transition-colors cursor-pointer ${activeMainTab === 'matches' ? 'text-[#FFCC00]' : 'hover:text-yellow-400'}`}
+                className={`transition-colors cursor-pointer ${activeMainTab === 'matches' ? 'text-cyan-400' : 'hover:text-cyan-300'}`}
               >
                 Live Score
               </button>
               <button
                 onClick={() => setActiveMainTab('standings')}
-                className={`transition-colors cursor-pointer ${activeMainTab === 'standings' ? 'text-[#FFCC00]' : 'hover:text-yellow-400'}`}
+                className={`transition-colors cursor-pointer ${activeMainTab === 'standings' ? 'text-cyan-400' : 'hover:text-cyan-300'}`}
               >
                 Klasemen Liga
               </button>
@@ -358,7 +348,7 @@ export default function App() {
                   setActiveMainTab('matches');
                   setStatusFilter('LIVE');
                 }}
-                className="hover:text-yellow-400 transition-colors cursor-pointer"
+                className="hover:text-cyan-300 transition-colors cursor-pointer"
               >
                 Laga Berlangsung (LIVE)
               </button>
